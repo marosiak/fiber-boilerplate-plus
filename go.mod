@@ -2,7 +2,10 @@ module project_module
 
 go 1.18
 
-require github.com/gofiber/fiber/v2 v2.36.0
+require (
+	github.com/gofiber/fiber/v2 v2.36.0
+	github.com/gofiber/template v1.6.30
+)
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect

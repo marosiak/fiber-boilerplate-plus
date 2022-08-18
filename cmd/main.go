@@ -3,14 +3,17 @@ package main
 import (
 	"flag"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/template/html"
 	"log"
+	"project_module/api"
 	"project_module/database"
-	"project_module/handlers"
 	"project_module/static"
+	"project_module/templates"
+	"project_module/views"
 )
 
 var (
@@ -28,7 +31,7 @@ func main() {
 	// Create fiber app
 	app := fiber.New(fiber.Config{
 		Prefork: *prod, // go run cmd/main.go -prod
-		Views:   html.NewFileSystem(static.GetFiles(), ".html"),
+		Views:   html.NewFileSystem(templates.GetFiles(), ".html"),
 	})
 
 	// Middleware
@@ -37,21 +40,24 @@ func main() {
 
 	// Create a /api/v1 endpoint
 	v1 := app.Group("/api/v1")
+	v1.Get("/users", api.UserList)
+	v1.Post("/users", api.UserCreate)
 
-	// Bind handlers
-	v1.Get("/users", handlers.UserList)
-	v1.Post("/users", handlers.UserCreate)
+	// Create server side rendered views
+	app.Get("/", views.UserListView)
+	app.Post("/users", views.AddUserView)
 
-	// Setup static files
-
-	// Handle not founds
-	//app.Use(handlers.NotFound)
+	//app.Use(api.NotFound)
 	app.Use(filesystem.New(filesystem.Config{
 		Root:         static.GetFiles(),
 		Browse:       true,
-		Index:        "public/index.html",
-		NotFoundFile: "404.html",
+		NotFoundFile: "private/404.html",
 		MaxAge:       3600,
+	}))
+
+	app.Use(favicon.New(favicon.Config{
+		File:       "public/favicon.ico",
+		FileSystem: static.GetFiles(),
 	}))
 
 	log.Fatal(app.Listen(*port)) // go run cmd/main.go -port=:8000

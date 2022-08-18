@@ -47,6 +47,7 @@ func main() {
 	//app.Use(handlers.NotFound)
 	app.Use(filesystem.New(filesystem.Config{
 		Root:         static.GetFiles(),
+		Browse:       true,
 		Index:        "index.html",
 		NotFoundFile: "404.html",
 		MaxAge:       3600,

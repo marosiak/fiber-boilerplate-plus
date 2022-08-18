@@ -7,9 +7,9 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"log"
-	"weekly/database"
-	"weekly/handlers"
-	"weekly/static"
+	"project_module/database"
+	"project_module/handlers"
+	"project_module/static"
 )
 
 var (

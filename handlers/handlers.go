@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"weekly/database"
-	"weekly/models"
+	"project_module/database"
+	"project_module/models"
 )
 
 // UserGet returns a user

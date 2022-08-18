@@ -1,4 +1,4 @@
-module weekly
+module project_module
 
 go 1.18
 

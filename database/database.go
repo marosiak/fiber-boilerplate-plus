@@ -2,8 +2,8 @@ package database
 
 import (
 	"fmt"
+	"project_module/models"
 	"sync"
-	"weekly/models"
 )
 
 var (

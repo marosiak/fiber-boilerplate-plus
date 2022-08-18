@@ -1,4 +1,4 @@
-project_name = weekly
+project_name = project
 image_name = gofiber:latest
 
 air:

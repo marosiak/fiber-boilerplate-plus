@@ -1,8 +1,8 @@
 # Building the binary of the App
 FROM golang:1.15 AS build
 
-# `rap-weekly` should be replaced with your project name
-WORKDIR /go/src/rap-weekly
+# `project-name` should be replaced with your project name
+WORKDIR /go/src/project-name
 
 # Copy all the Code and stuff to compile everything
 COPY . .
@@ -23,8 +23,7 @@ WORKDIR /app
 RUN mkdir ./static
 COPY ./static ./static
 
-# `rap-weekly` should be replaced here as well
-COPY --from=build /go/src/rap-weekly/app .
+COPY --from=build /go/src/project-name/app .
 
 # Exposes port 8000 because our program listens on that port
 EXPOSE 8000

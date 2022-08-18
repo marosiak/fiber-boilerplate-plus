@@ -1,23 +1,35 @@
+#Boilerplate
+First of all, you will probably need to cut this header Boilerplate header part
+
+
+Then you can find & replace these names:
+```
+project_module
+project-name
+```
+
+
 ## Development
 
 ### Start the application 
 
-Basic:
+###Basic
 ```bash
 go run cmd/main.go
 ```
 
-Live-reload with [Air](https://github.com/cosmtrek/air)
-```bash
-make air
-```
+###Live reload with [Air](https://github.com/cosmtrek/air)
 
-It also works with windows without make, use:
 ```bash
 go install github.com/cosmtrek/air@latest
 air
 ```
-You may also need to add `$GOPATH/bin` to your `$PATH`
+
+Alternatively:
+```bash
+make air
+```
+You may need to add `$GOPATH/bin` to your `$PATH`
 ### Use local container
 
 ```

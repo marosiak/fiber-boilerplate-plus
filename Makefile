@@ -1,6 +1,10 @@
 project_name = weekly
 image_name = gofiber:latest
 
+air:
+	# May not work if you don't have $GOPATH/bin in $PATH, we don't want to touch your envs
+	go install github.com/cosmtrek/air@latest && air
+
 run-local:
 	go run cmd/main.go
 

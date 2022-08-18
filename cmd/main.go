@@ -28,7 +28,7 @@ func main() {
 	// Create fiber app
 	app := fiber.New(fiber.Config{
 		Prefork: *prod, // go run cmd/main.go -prod
-		Views:   html.NewFileSystem(static.GetPublicFiles(), ".html"),
+		Views:   html.NewFileSystem(static.GetFiles(), ".html"),
 	})
 
 	// Middleware
@@ -47,7 +47,7 @@ func main() {
 	// Handle not founds
 	//app.Use(handlers.NotFound)
 	app.Use(filesystem.New(filesystem.Config{
-		Root:         static.GetPublicFiles(),
+		Root:         static.GetFiles(),
 		Browse:       true,
 		Index:        "public/index.html",
 		NotFoundFile: "404.html",

@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/template/html"
 	"log"
 	"project_module/database"
 	"project_module/handlers"
@@ -27,6 +28,7 @@ func main() {
 	// Create fiber app
 	app := fiber.New(fiber.Config{
 		Prefork: *prod, // go run cmd/main.go -prod
+		Views:   html.NewFileSystem(static.GetPublicFiles(), ".html"),
 	})
 
 	// Middleware
@@ -41,14 +43,13 @@ func main() {
 	v1.Post("/users", handlers.UserCreate)
 
 	// Setup static files
-	app.Static("/", "./static/public")
 
 	// Handle not founds
 	//app.Use(handlers.NotFound)
 	app.Use(filesystem.New(filesystem.Config{
-		Root:         static.GetFiles(),
+		Root:         static.GetPublicFiles(),
 		Browse:       true,
-		Index:        "index.html",
+		Index:        "public/index.html",
 		NotFoundFile: "404.html",
 		MaxAge:       3600,
 	}))

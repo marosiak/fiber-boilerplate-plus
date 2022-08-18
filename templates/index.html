@@ -21,6 +21,7 @@
         <button class="btn btn-outline-secondary" type="submit" id="add_user">Add User</button>
       </div>
     </form>
+    {{ .Error }}
     <h4>Users</h4>
     <ul class="list-group" id="users">
       {{ with .users }}

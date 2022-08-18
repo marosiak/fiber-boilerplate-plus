@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/template/html"
 	"log"
@@ -38,6 +39,8 @@ func main() {
 	app.Use(recover.New())
 	app.Use(logger.New())
 
+	app.Get("/metrics", monitor.New(monitor.Config{Title: "Metrics Page"}))
+
 	// Create a /api/v1 endpoint
 	v1 := app.Group("/api/v1")
 	v1.Get("/users", api.UserList)
@@ -45,7 +48,7 @@ func main() {
 
 	// Create server side rendered views
 	app.Get("/", views.UserListView)
-	app.Post("/users", views.AddUserView)
+	app.Post("/users", views.AddUserView, views.UserListView)
 
 	//app.Use(api.NotFound)
 	app.Use(filesystem.New(filesystem.Config{

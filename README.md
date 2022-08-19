@@ -13,12 +13,12 @@ project-name
 
 ### Start the application 
 
-###Basic
+### Basic
 ```bash
 go run cmd/main.go
 ```
 
-###Live reload with [Air](https://github.com/cosmtrek/air)
+### Live reload with [Air](https://github.com/cosmtrek/air)
 
 ```bash
 go install github.com/cosmtrek/air@latest
@@ -28,6 +28,11 @@ air
 Alternatively:
 ```bash
 make air
+```
+
+For Windows you will need to use different configuration:
+```bash
+air -c windows.air.toml
 ```
 You may need to add `$GOPATH/bin` to your `$PATH`
 ### Use local container

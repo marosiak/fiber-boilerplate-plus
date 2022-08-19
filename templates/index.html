@@ -15,13 +15,14 @@
 
     </div>
     <h4>Add user</h4>
+    <p class="error-message">{{ .error }}</p>
     <form action="/users" method="post" class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Username" name="name" id="user">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="submit" id="add_user">Add User</button>
       </div>
     </form>
-    {{ .Error }}
+
     <h4>Users</h4>
     <ul class="list-group" id="users">
       {{ with .users }}

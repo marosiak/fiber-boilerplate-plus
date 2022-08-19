@@ -3,9 +3,9 @@ testdata_dir = "testdata"
 tmp_dir = "build"
 
 [build]
-  args_bin = ["--verbosity=5"]
-  bin = "build/main" # 5 will display .Debug() messages
-  cmd = "go build -o ./build/main cmd/main.go"
+  args_bin = []
+  bin = "build\\main.exe"
+  cmd = "go build -o ./build/main.exe cmd/main.go"
   delay = 550
   exclude_dir = ["build", "vendor", "testdata"]
   exclude_file = []

@@ -19,15 +19,15 @@ func NewUserViews(sessionCtx *sessioncontext.SessionContext, logger *log.Entry) 
 	return &UserViews{sessionCtx: sessionCtx, log: logger}
 }
 
-const ErrorSessionKey = "error"
+const ErrorMessageKey = "error"
 
 func (u UserViews) UserListView(c *fiber.Ctx) error {
 	users := database.Get()
 
-	errorMsg := u.sessionCtx.Get(c, ErrorSessionKey, "")
+	errorMsg := u.sessionCtx.Get(c, ErrorMessageKey, "")
 	if errorMsg != nil {
 		// We will render this error and clear it from storage, so it won't appear forever
-		u.sessionCtx.Set(c, ErrorSessionKey, "")
+		u.sessionCtx.Set(c, ErrorMessageKey, "")
 	}
 
 	return c.Render("index", fiber.Map{
@@ -41,7 +41,7 @@ func (u UserViews) AddUserView(c *fiber.Ctx) error {
 
 	if name == "" {
 		u.log.Debug("name is empty")
-		u.sessionCtx.Set(c, ErrorSessionKey, "The name cannot be empty")
+		u.sessionCtx.Set(c, ErrorMessageKey, "The name cannot be empty")
 		return c.Redirect("/")
 	} else {
 		database.Insert(&models.User{Name: name})

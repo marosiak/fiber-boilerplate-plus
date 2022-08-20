@@ -19,6 +19,21 @@ func New(store *fiberSession.Store, log *logrus.Entry) *SessionContext {
 	return &SessionContext{store: store, log: log}
 }
 
+func (p *SessionContext) ClearAll(c *fiber.Ctx) {
+	session, err := p.store.Get(c)
+	if err != nil {
+		p.log.WithError(err).Error("clearing SessionProps failed")
+		return
+	}
+
+	session.Set(SessionPropsKey, nil)
+	err = session.Save()
+	if err != nil {
+		p.log.WithError(err).Error("saving SessionProps failed")
+		return
+	}
+}
+
 func (p *SessionContext) Get(c *fiber.Ctx, key string, defaultValue any) any {
 	log := p.log.WithField("key", key)
 	session, err := p.store.Get(c)
@@ -50,12 +65,12 @@ func (p *SessionContext) Set(c *fiber.Ctx, key string, value any) {
 		return
 	}
 
-	sProps := session.Get(SessionPropsKey)
-	if sProps == nil {
-		sProps = make(sessionProps)
+	sesProps := session.Get(SessionPropsKey)
+	if sesProps == nil {
+		sesProps = make(sessionProps)
 	}
 
-	props := sProps.(sessionProps)
+	props := sesProps.(sessionProps)
 	props[key] = value
 
 	session.Set(SessionPropsKey, props)

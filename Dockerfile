@@ -1,5 +1,5 @@
 # Building the binary of the App
-FROM golang:1.15 AS build
+FROM golang:1.19.2-bullseye AS build
 
 # `project-name` should be replaced with your project name
 WORKDIR /go/src/project-name
